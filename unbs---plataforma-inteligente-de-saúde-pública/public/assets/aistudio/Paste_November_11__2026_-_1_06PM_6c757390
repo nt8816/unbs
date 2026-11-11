@@ -1,0 +1,1705 @@
+# PROMPT MESTRE — UNBS
+## Plataforma Inteligente de Saúde Pública
+### Especificação Técnica v4 — Desenvolvimento Full Stack
+
+Você é uma equipe multidisciplinar sênior composta por arquitetos de software, engenheiros full stack, especialistas em segurança da informação, designers UI/UX, especialistas em PostgreSQL, engenheiros DevOps, analistas de sistemas de saúde pública e especialistas em acessibilidade.
+
+Sua missão é **projetar, desenvolver, integrar, testar e preparar para implantação uma plataforma completa chamada UNBS**, destinada a conectar cidadãos, Unidades Básicas de Saúde (UBS), profissionais de saúde e gestores municipais.
+
+Não quero apenas telas, um protótipo ou uma demonstração superficial. Quero uma aplicação funcional, modular, organizada, segura, escalável e com arquitetura preparada para utilização real, após as validações e autorizações necessárias.
+
+Implemente o sistema progressivamente, escrevendo código real, arquivos reais, configurações, banco de dados, APIs e interfaces funcionais.
+
+---
+
+# 1. IDENTIDADE E OBJETIVO DO PROJETO
+
+**Nome:** UNBS
+
+**Categoria:** Plataforma Digital de Saúde Pública.
+
+**Público-alvo:**
+- Cidadãos atendidos pelo SUS.
+- Unidades Básicas de Saúde.
+- Recepcionistas e agentes administrativos.
+- Médicos.
+- Enfermeiros.
+- Técnicos de enfermagem.
+- Agentes Comunitários de Saúde (ACS).
+- Dentistas.
+- Equipes de vacinação.
+- Gestores de UBS.
+- Coordenadores municipais.
+- Secretarias Municipais de Saúde.
+- Administradores autorizados.
+
+## Problema central
+
+Atualmente, muitas UBS dependem excessivamente da comunicação presencial, ligações, mensagens informais e informações transmitidas verbalmente.
+
+Isso dificulta agendamentos, acompanhamento dos serviços, organização das filas e comunicação entre os cidadãos e as equipes.
+
+## Objetivo
+
+Transformar a UNBS em uma plataforma centralizada que permita ao cidadão interagir com sua UBS pelo celular ou computador e ofereça às equipes ferramentas modernas de gestão, atendimento, comunicação e organização.
+
+A UNBS deve ser capaz de atender múltiplos municípios, cada um com suas próprias UBS, equipes e regras operacionais.
+
+A plataforma precisa funcionar especialmente bem em cidades pequenas e regiões com conexão instável, sem excluir pessoas com pouca familiaridade tecnológica.
+
+---
+
+# 2. REGRAS OBRIGATÓRIAS DE IMPLEMENTAÇÃO
+
+1. Não desenvolver apenas um site institucional.
+2. Não criar botões sem funcionalidade.
+3. Não utilizar dados fictícios como se fossem informações reais.
+4. Não deixar informações sensíveis expostas no frontend.
+5. Não misturar permissões entre cidadãos e funcionários.
+6. Não permitir que uma UBS acesse dados de outra UBS sem autorização.
+7. Não permitir agendamentos duplicados no mesmo horário e recurso.
+8. Não utilizar apenas localStorage como banco de dados.
+9. Não criar autenticação simulada como substituta da autenticação real.
+10. Não colocar chaves secretas no código cliente.
+11. Não usar IA para diagnosticar doenças ou prescrever tratamentos.
+12. Não apresentar integrações inexistentes como concluídas.
+13. Não inventar informações clínicas, vacinas aplicadas, consultas ou profissionais.
+14. Não assumir que uma interface bonita significa que o sistema está funcional.
+15. Toda operação importante deve apresentar confirmação, validação, tratamento de erros e estado de carregamento.
+16. Cada funcionalidade deve ter conexão real entre interface, API, autorização e persistência.
+17. Toda estrutura deve ser preparada para crescimento futuro.
+18. Respeitar as exigências da LGPD, segurança e confidencialidade dos dados de saúde.
+19. Isolar rigorosamente dados de municípios e unidades conforme permissões.
+20. Nunca utilizar dados reais de pacientes durante o desenvolvimento ou demonstrações.
+
+---
+
+# 3. ARQUITETURA TECNOLÓGICA
+
+Utilizar preferencialmente as seguintes tecnologias.
+
+## Frontend Web
+
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- shadcn/ui.
+- Lucide Icons.
+- React Router.
+- TanStack Query.
+- React Hook Form.
+- Zod.
+- Recharts.
+- PWA com Service Worker.
+
+O frontend deve ser completamente responsivo, com experiência adequada para smartphones, tablets e computadores.
+
+## Backend
+
+- Cloudflare Workers.
+- TypeScript.
+- Hono para rotas e middleware.
+- API REST versionada.
+- OpenAPI para documentação.
+- Validação server-side.
+- Logs estruturados.
+- Tratamento padronizado de erros.
+
+## Banco de dados e autenticação
+
+- Supabase.
+- PostgreSQL.
+- Supabase Auth.
+- Row Level Security (RLS).
+- Supabase Storage.
+- Supabase Realtime para funcionalidades adequadas.
+- Migrações SQL versionadas.
+
+O backend deve ser a camada de regras de negócio e não confiar apenas nas validações do frontend.
+
+## Infraestrutura
+
+- Cloudflare Pages ou infraestrutura equivalente compatível para hospedar o frontend.
+- Cloudflare Workers para API.
+- Cloudflare Turnstile para proteção contra abuso.
+- Cloudflare WAF e rate limiting.
+- Cloudflare Cron Triggers para tarefas recorrentes.
+- Supabase para dados e autenticação.
+- GitHub Actions para CI/CD.
+- Ambiente local, homologação e produção separados.
+
+## Aplicativo Android
+
+Preparar a arquitetura para um aplicativo Android nativo usando:
+
+- Kotlin.
+- Jetpack Compose.
+- Hilt.
+- Retrofit.
+- Room.
+- Coroutines.
+
+O Android deve consumir a mesma API e respeitar as mesmas regras de autenticação e autorização.
+
+Priorizar inicialmente uma aplicação Web/PWA funcional e deixar a implementação Android organizada como uma etapa independente, sem prejudicar o desenvolvimento principal.
+
+---
+
+# 4. DESIGN E EXPERIÊNCIA DO USUÁRIO
+
+Quero uma identidade visual própria e profissional para a UNBS.
+
+O sistema deve transmitir confiança, saúde, organização, acessibilidade e modernidade.
+
+## Diretrizes visuais
+
+- Interface moderna, elegante e intuitiva.
+- Identidade própria, sem copiar o design de outros sistemas.
+- Paleta principal com azul, verde e tons neutros.
+- Tipografia legível e hierarquia visual clara.
+- Componentes consistentes.
+- Ícones discretos.
+- Cartões e indicadores bem organizados.
+- Espaçamento equilibrado.
+- Layout limpo.
+- Animações suaves e funcionais.
+- Skeleton loading.
+- Feedback visual para operações.
+- Estados vazios bem desenvolvidos.
+- Modais de confirmação.
+- Alertas informativos.
+- Formulários acessíveis.
+- Navegação simples.
+
+## Mobile First
+
+Priorizar a experiência dos cidadãos no celular.
+
+Os principais serviços devem ser acessíveis em poucos toques.
+
+Criar uma navegação inferior no aplicativo do cidadão com:
+
+- Início.
+- Agendamentos.
+- Saúde.
+- Avisos.
+- Perfil.
+
+No painel administrativo, utilizar sidebar responsiva, cabeçalho superior, breadcrumbs, filtros e busca.
+
+## Acessibilidade
+
+Implementar:
+
+- Navegação por teclado.
+- Contraste adequado.
+- Labels acessíveis.
+- Compatibilidade com leitores de tela.
+- Redução de movimento.
+- Ajustes de fonte quando necessário.
+- Layout adaptável.
+- Mensagens compreensíveis.
+- Conformidade com WCAG 2.2 AA sempre que tecnicamente aplicável.
+
+---
+
+# 5. ARQUITETURA MULTIMUNICIPAL
+
+A UNBS deverá trabalhar com uma arquitetura multi-tenant.
+
+Estrutura lógica:
+
+PLATAFORMA UNBS
+→ MUNICÍPIO
+→ SECRETARIA MUNICIPAL DE SAÚDE
+→ UBS
+→ SETORES
+→ PROFISSIONAIS
+→ SERVIÇOS
+→ CIDADÃOS
+
+Cada município precisa ter ambientes e permissões logicamente isolados.
+
+Uma Secretaria Municipal pode administrar diversas UBS.
+
+Uma UBS pode possuir diversos setores e profissionais.
+
+Um profissional poderá atuar em múltiplas unidades, desde que tenha vínculos e permissões explícitos.
+
+Um cidadão poderá receber atendimento em mais de uma UBS, de acordo com as regras configuradas e a legislação.
+
+Nenhuma consulta de dados poderá depender exclusivamente de filtros enviados pelo cliente para garantir o isolamento.
+
+Criar políticas robustas de autorização no backend e no PostgreSQL.
+
+---
+
+# 6. SISTEMA DE AUTENTICAÇÃO
+
+Criar autenticação real e segura.
+
+## Funcionalidades
+
+- Cadastro.
+- Login.
+- Logout.
+- Recuperação de senha.
+- Verificação de e-mail.
+- Atualização de senha.
+- Gerenciamento de sessões.
+- Revogação de sessões.
+- Proteção contra tentativas excessivas.
+- Autenticação multifator para perfis administrativos.
+- Gerenciamento de dispositivos e sessões quando suportado.
+- Exclusão ou desativação de conta conforme obrigações legais de retenção.
+
+## Cadastro do cidadão
+
+Campos previstos:
+
+- Nome completo.
+- CPF.
+- Data de nascimento.
+- E-mail, quando disponível.
+- Telefone.
+- Endereço.
+- Município.
+- UBS de referência.
+- Número do CNS, quando necessário e permitido.
+- Informações adicionais estritamente necessárias.
+
+Validar os dados corretamente.
+
+Não usar CPF, CNS ou data de nascimento como senha.
+
+A identificação de crianças e dependentes precisa ter regras próprias de responsabilidade e acesso.
+
+## Funcionários
+
+Não permitir cadastro livre com perfil profissional.
+
+Contas de funcionários devem ser criadas ou vinculadas por administradores autorizados, com procedimento seguro de ativação.
+
+Os profissionais devem ser associados às respectivas unidades, cargos e setores.
+
+---
+
+# 7. CONTROLE DE ACESSO — RBAC E ABAC
+
+Criar um sistema robusto de permissões combinando:
+
+RBAC: Role-Based Access Control.
+
+ABAC: Attribute-Based Access Control.
+
+A autorização deve considerar:
+
+- Identidade.
+- Cargo.
+- Permissão.
+- Município.
+- UBS.
+- Setor.
+- Vínculo profissional.
+- Finalidade da operação.
+- Necessidade de acesso.
+- Contexto do atendimento.
+
+## Perfis iniciais
+
+### Cidadão
+Acesso somente às próprias informações e às de dependentes legalmente vinculados.
+
+### Recepcionista
+Agendamentos, check-in, atendimento administrativo e fila.
+
+### Enfermeiro
+Informações e operações relacionadas às atribuições profissionais e aos pacientes sob atendimento autorizado.
+
+### Médico
+Agenda profissional e informações clínicas estritamente permitidas no contexto do atendimento.
+
+### Técnico de enfermagem
+Acesso às funcionalidades relacionadas ao seu cargo.
+
+### Vacinador
+Registro e consulta autorizada de imunização.
+
+### Dentista
+Agenda e atendimentos odontológicos autorizados.
+
+### Agente Comunitário de Saúde
+Acompanhamento territorial autorizado, com minimização de dados pessoais.
+
+### Gestor de UBS
+Administração operacional da unidade, sem acesso clínico irrestrito.
+
+### Gestor da Secretaria
+Gestão das unidades municipais, relatórios e indicadores com restrições apropriadas.
+
+### Superadministrador
+Administração técnica da plataforma, sem acesso automático ao conteúdo clínico dos pacientes.
+
+Criar matriz de permissões configurável.
+
+Registrar concessões, alterações e revogações de acesso.
+
+A revogação precisa produzir efeito nas operações futuras imediatamente.
+
+---
+
+# 8. PORTAL DO CIDADÃO
+
+Construir uma área exclusiva para cidadãos.
+
+## 8.1 Tela inicial
+
+Exibir:
+
+- Saudação personalizada.
+- UBS de referência.
+- Próximo agendamento.
+- Status de solicitações.
+- Avisos oficiais.
+- Campanhas de vacinação.
+- Acesso rápido aos serviços.
+- Carteira de vacinação.
+- Histórico de agendamentos.
+- Notificações.
+- Informações úteis da UBS.
+
+Não apresentar informações inventadas quando ainda não houver registros.
+
+## 8.2 Perfil
+
+Permitir consultar e alterar dados autorizados.
+
+Mostrar:
+
+- Dados pessoais.
+- Contato.
+- Endereço.
+- UBS de referência.
+- Preferências de notificação.
+- Configurações de privacidade.
+- Dependentes autorizados.
+- Histórico de sessões, quando disponível.
+
+---
+
+# 9. AGENDAMENTO ONLINE
+
+Desenvolver um dos módulos centrais da plataforma.
+
+## Fluxo do cidadão
+
+1. Selecionar a UBS.
+2. Escolher o serviço.
+3. Selecionar especialidade, quando aplicável.
+4. Selecionar profissional, caso exista essa opção.
+5. Consultar datas disponíveis.
+6. Consultar horários realmente disponíveis.
+7. Selecionar horário.
+8. Confirmar informações.
+9. Finalizar solicitação ou agendamento.
+10. Receber protocolo e confirmação.
+
+## Funcionalidades
+
+- Disponibilidade em tempo real.
+- Agendamentos futuros.
+- Histórico.
+- Cancelamento.
+- Reagendamento.
+- Confirmação de presença.
+- Lista de espera.
+- Notificações.
+- Protocolos.
+- Controle de faltas.
+- Informações de preparo quando publicadas pela equipe.
+- Restrições configuráveis por serviço.
+- Agendamento por responsável legal.
+
+## Estados
+
+- SOLICITADO.
+- PENDENTE.
+- CONFIRMADO.
+- CANCELADO.
+- REAGENDADO.
+- CHECK_IN.
+- EM_ATENDIMENTO.
+- CONCLUIDO.
+- NAO_COMPARECEU.
+
+Documentar as transições permitidas de cada estado.
+
+## Proteções
+
+Implementar transações no PostgreSQL, restrições e operações atômicas para impedir conflitos de horários.
+
+Bloquear vagas indisponíveis.
+
+Considerar duração de consulta, profissional, sala, serviço, horários especiais, feriados e capacidade de atendimento.
+
+Evitar duplicidade por repetição de requisições usando idempotência.
+
+Os horários devem refletir a disponibilidade oficial cadastrada, não horários gerados artificialmente pelo frontend.
+
+---
+
+# 10. GESTÃO DE AGENDAMENTOS PELA UBS
+
+No painel dos funcionários, permitir:
+
+- Visualizar agenda diária.
+- Visualizar agenda semanal.
+- Filtrar por profissional.
+- Filtrar por setor.
+- Buscar cidadão.
+- Criar agendamento presencial.
+- Confirmar agendamento.
+- Cancelar com justificativa.
+- Reagendar.
+- Bloquear horários.
+- Criar indisponibilidades.
+- Gerenciar encaixes autorizados.
+- Administrar lista de espera.
+- Identificar conflitos.
+- Consultar comparecimento.
+- Emitir relatórios.
+
+O sistema deve permitir configurar diferentes regras para consultas, procedimentos e campanhas.
+
+---
+
+# 11. CHECK-IN E FILA DE ATENDIMENTO
+
+Criar gestão inteligente da fila da UBS.
+
+## Funcionalidades
+
+- Check-in presencial.
+- Check-in digital quando autorizado.
+- Geração de senha de atendimento.
+- Painel de chamadas.
+- Controle de posição.
+- Separação por serviços.
+- Separação por setores.
+- Registro de chegada.
+- Registro de chamada.
+- Registro de atendimento.
+- Registro de ausência.
+- Transferência de fila autorizada.
+- Atualização em tempo real.
+
+## Painel público
+
+Permitir exibir senhas e guichês em um monitor da UBS.
+
+Não mostrar nomes completos nem dados médicos.
+
+## Priorização
+
+Permitir configurar prioridades legalmente aplicáveis.
+
+Não utilizar decisões automáticas de IA para determinar urgência clínica.
+
+Casos que exigem classificação clínica de risco devem ser encaminhados para avaliação de profissional habilitado.
+
+## Tempo estimado
+
+Apresentar previsão somente quando houver dados suficientes.
+
+Identificar claramente que é uma estimativa sujeita a alterações.
+
+---
+
+# 12. CARTEIRA E HISTÓRICO DE VACINAÇÃO
+
+Criar um módulo de imunização.
+
+## Para o cidadão
+
+- Histórico de vacinas registradas.
+- Nome da vacina.
+- Dose.
+- Data de aplicação.
+- Unidade responsável.
+- Lote, quando autorizado.
+- Próximas doses registradas.
+- Situação de registros.
+- Avisos de campanhas.
+- Documento de vacinação quando juridicamente e tecnicamente válido.
+
+## Para a equipe
+
+- Registrar aplicação.
+- Consultar registros autorizados.
+- Identificar vacina e lote.
+- Identificar profissional.
+- Registrar data.
+- Corrigir registros com justificativa.
+- Consultar trilha de alterações.
+- Acompanhar estoque.
+- Consultar registros de doses por unidade.
+
+## Regras críticas
+
+Nenhum cidadão poderá alterar diretamente vacinas aplicadas.
+
+Registros precisam ter autoria e rastreabilidade.
+
+Não afirmar que um histórico local está completo em relação ao SUS nacional sem integração e reconciliação verificadas.
+
+Prever integrações futuras com sistemas oficiais, respeitando credenciais, padrões, consentimentos ou outras bases legais pertinentes e regras institucionais.
+
+---
+
+# 13. MÓDULO DE SERVIÇOS DA UBS
+
+Cada unidade deverá configurar seus próprios serviços.
+
+Exemplos:
+
+- Consultas médicas.
+- Enfermagem.
+- Odontologia.
+- Vacinação.
+- Curativos.
+- Acompanhamento pré-natal.
+- Acompanhamento infantil.
+- Procedimentos permitidos.
+- Atendimento administrativo.
+- Outros serviços cadastrados.
+
+Cada serviço deve conter:
+
+- Nome.
+- Descrição.
+- Setor.
+- Profissionais responsáveis.
+- Dias e horários.
+- Duração.
+- Capacidade.
+- Critérios de elegibilidade.
+- Necessidade de agendamento.
+- Regras de cancelamento.
+- Orientações ao cidadão.
+- Situação de disponibilidade.
+
+A disponibilidade de um serviço deve ser mantida pela UBS.
+
+---
+
+# 14. COMUNICAÇÃO OFICIAL
+
+Criar um sistema de comunicação entre UBS e cidadãos.
+
+## Publicações
+
+- Notícias da unidade.
+- Mudanças de horário.
+- Avisos de funcionamento.
+- Campanhas.
+- Serviços disponíveis.
+- Informações sobre vacinação.
+- Comunicados municipais.
+- Alertas administrativos.
+
+## Segmentação
+
+Permitir publicar para:
+
+- Todos os cidadãos de uma UBS.
+- Município inteiro.
+- Público autorizado de determinado serviço.
+- Grupos definidos conforme finalidade legítima.
+
+## Segurança
+
+Publicações institucionais devem ser moderadas por equipe autorizada.
+
+Não revelar condições de saúde de pessoas na segmentação pública.
+
+---
+
+# 15. SISTEMA DE NOTIFICAÇÕES
+
+Implementar uma central de notificações.
+
+Tipos:
+
+- Agendamento confirmado.
+- Agendamento alterado.
+- Consulta cancelada.
+- Lembrete de atendimento.
+- Aviso da UBS.
+- Nova campanha.
+- Atualização de solicitação.
+- Comunicação administrativa.
+
+## Canais
+
+Inicialmente:
+
+- Notificações dentro da plataforma.
+- Notificações Web Push quando suportadas.
+
+Preparar integração futura com:
+
+- E-mail.
+- SMS.
+- WhatsApp Business Platform oficial.
+
+Utilizar filas ou processamento assíncrono, tentativas controladas e registros de entrega.
+
+Não enviar dados clínicos sensíveis pelo conteúdo de notificações comuns.
+
+Não afirmar que mensagens externas foram enviadas caso não exista integração configurada.
+
+---
+
+# 16. SOLICITAÇÕES E ATENDIMENTO ADMINISTRATIVO
+
+Criar uma área onde cidadãos possam realizar solicitações administrativas.
+
+Exemplos:
+
+- Dúvidas sobre funcionamento.
+- Informações sobre serviços.
+- Atualização cadastral.
+- Solicitações permitidas pela unidade.
+- Problemas de agendamento.
+- Solicitações de atendimento administrativo.
+
+Cada solicitação terá:
+
+- Protocolo.
+- Categoria.
+- Descrição.
+- Unidade responsável.
+- Estado.
+- Data de abertura.
+- Respostas.
+- Histórico.
+- Responsável pelo tratamento.
+- Prazo, quando definido.
+
+Criar uma caixa de entrada operacional para funcionários autorizados.
+
+---
+
+# 17. OUVIDORIA E AVALIAÇÃO
+
+Criar módulo de ouvidoria.
+
+Permitir:
+
+- Reclamações.
+- Sugestões.
+- Elogios.
+- Relatos administrativos.
+- Acompanhamento por protocolo.
+- Avaliação voluntária do serviço.
+
+Implementar sigilo, restrições de acesso e anonimato somente quando houver mecanismo que efetivamente o preserve.
+
+Não expor avaliações com dados pessoais publicamente.
+
+---
+
+# 18. PAINEL ADMINISTRATIVO DA UBS
+
+Criar dashboard moderno com indicadores operacionais.
+
+## Indicadores
+
+- Agendamentos do dia.
+- Atendimentos concluídos.
+- Pessoas aguardando.
+- Cancelamentos.
+- Faltas.
+- Taxa de comparecimento.
+- Disponibilidade de horários.
+- Profissionais em atividade.
+- Solicitações pendentes.
+- Atividades por setor.
+
+## Gráficos
+
+- Evolução dos agendamentos.
+- Comparecimento.
+- Distribuição por serviço.
+- Quantidade de atendimentos.
+- Horários de maior movimento.
+- Ocupação das agendas.
+- Evolução das filas.
+- Vacinas aplicadas, quando houver registros válidos.
+
+Utilizar dados verdadeiros do banco.
+
+Filtros:
+
+- Período.
+- UBS.
+- Setor.
+- Serviço.
+- Profissional, conforme permissão.
+
+Implementar gráficos interativos e visualmente profissionais.
+
+---
+
+# 19. PAINEL DA SECRETARIA MUNICIPAL
+
+A Secretaria deve administrar múltiplas UBS.
+
+Funcionalidades:
+
+- Cadastrar e gerenciar unidades.
+- Administrar gestores.
+- Consultar indicadores operacionais.
+- Comparar unidades.
+- Gerenciar campanhas municipais.
+- Consultar capacidade de atendimento.
+- Identificar gargalos.
+- Administrar serviços municipais.
+- Visualizar relatórios agregados.
+- Acompanhar disponibilidade de recursos.
+- Configurar regras municipais.
+- Administrar comunicados.
+- Exportar dados autorizados.
+
+## Dashboard municipal
+
+Indicadores:
+
+- Total de unidades.
+- Total de profissionais ativos.
+- Atendimentos por período.
+- Ocupação das agendas.
+- Taxa de comparecimento.
+- Capacidade por unidade.
+- Distribuição de serviços.
+- Evolução operacional.
+
+Aplicar agregação e controles para evitar exposição indevida de informações pessoais.
+
+---
+
+# 20. GESTÃO DE PROFISSIONAIS
+
+Criar cadastro e gestão de profissionais.
+
+Dados:
+
+- Identificação.
+- Cargo.
+- Unidade.
+- Setor.
+- Registro profissional, quando aplicável.
+- Situação do vínculo.
+- Horários.
+- Serviços prestados.
+- Permissões.
+- Histórico administrativo.
+
+Permitir:
+
+- Criar vínculo.
+- Desativar vínculo.
+- Associar a mais de uma UBS.
+- Configurar agenda.
+- Configurar afastamentos.
+- Definir períodos indisponíveis.
+- Gerenciar permissões autorizadas.
+
+Não permitir que mudanças de cargo concedam acesso irrestrito automaticamente.
+
+---
+
+# 21. ESTOQUE E INSUMOS
+
+Criar um módulo de gestão de estoque para itens autorizados.
+
+Funcionalidades:
+
+- Cadastro de produtos.
+- Categorias.
+- Lotes.
+- Validade.
+- Entradas.
+- Saídas.
+- Transferências.
+- Inventário.
+- Estoque mínimo.
+- Alertas de vencimento.
+- Histórico de movimentações.
+- Responsável por operação.
+- Relatórios.
+
+Impedir estoque negativo indevido.
+
+Registrar alterações de forma auditável.
+
+Restringir o acesso aos profissionais responsáveis.
+
+Prever configurações específicas para vacinas e insumos que exigem controle especial.
+
+---
+
+# 22. ENCAMINHAMENTOS
+
+Preparar um módulo de encaminhamentos administrativos entre serviços e unidades.
+
+Recursos:
+
+- Criar encaminhamento autorizado.
+- Identificar origem.
+- Identificar destino.
+- Registrar status.
+- Consultar histórico.
+- Acompanhar solicitações.
+- Registrar recebimento.
+- Cancelar justificadamente.
+- Gerar protocolo.
+
+Não tratar encaminhamentos internos como integração automaticamente válida com sistemas oficiais de regulação.
+
+A lógica clínica e regulatória deverá depender de protocolos oficiais, profissionais autorizados e integrações institucionais.
+
+---
+
+# 23. MÓDULO CLÍNICO E PRONTUÁRIO — ETAPA POSTERIOR
+
+Preparar arquitetura, mas não liberar prontuário clínico para uso real sem avaliação regulatória, segurança reforçada e validação institucional.
+
+Possíveis funcionalidades futuras:
+
+- Histórico de atendimentos autorizados.
+- Evoluções clínicas.
+- Registros de enfermagem.
+- Documentos clínicos.
+- Acompanhamento longitudinal.
+- Informações odontológicas.
+- Interoperabilidade com e-SUS APS e RNDS, quando oficialmente autorizada e tecnicamente viável.
+
+O sistema não deverá se apresentar como substituto do prontuário oficial utilizado pela unidade sem requisitos de interoperabilidade, conformidade e governança atendidos.
+
+Não criar dados clínicos falsos para pacientes reais.
+
+Não criar assinaturas eletrônicas ou documentos com validade jurídica apenas por aparência visual.
+
+---
+
+# 24. FUNCIONALIDADES DE INTELIGÊNCIA ARTIFICIAL
+
+Preparar uma arquitetura opcional e controlada para IA.
+
+## Assistente institucional
+
+O assistente poderá responder:
+
+- Horário de funcionamento.
+- Localização da UBS.
+- Serviços disponíveis.
+- Como agendar consulta.
+- Como cancelar.
+- Como utilizar a plataforma.
+- Avisos oficiais publicados.
+- Informações administrativas autorizadas.
+
+## Restrições
+
+- Não realizar diagnóstico.
+- Não prescrever medicamentos.
+- Não interpretar resultados clínicos como decisão médica.
+- Não recomendar procedimentos individualizados.
+- Não consultar prontuário sem autorização e finalidade legítima.
+- Não utilizar informações pessoais sensíveis sem necessidade.
+- Não inventar informações sobre a unidade.
+- Não executar operações administrativas sem confirmação e autorização.
+
+As respostas deverão se basear em dados oficiais disponibilizados pela plataforma.
+
+O assistente deve indicar quando não possuir informação confiável.
+
+A IA é complementar e não pode ser dependência crítica do funcionamento da UBS.
+
+---
+
+# 25. BANCO DE DADOS
+
+Criar o esquema PostgreSQL completo e normalizado.
+
+Incluir, quando necessário, tabelas equivalentes a:
+
+- municipalities
+- health_departments
+- health_units
+- sectors
+- services
+- service_schedules
+- users
+- citizen_profiles
+- professional_profiles
+- employee_assignments
+- roles
+- permissions
+- role_permissions
+- user_role_assignments
+- patient_guardians
+- appointments
+- appointment_status_history
+- appointment_slots
+- professional_availability
+- schedule_blocks
+- waiting_lists
+- check_ins
+- queues
+- queue_entries
+- queue_calls
+- vaccines
+- vaccine_batches
+- immunization_records
+- vaccination_campaigns
+- inventory_items
+- inventory_lots
+- inventory_movements
+- announcements
+- notifications
+- notification_deliveries
+- service_requests
+- service_request_messages
+- feedback
+- complaints
+- referrals
+- audit_logs
+- security_events
+- user_consents
+- privacy_requests
+- system_settings
+- municipality_settings
+- integration_configs
+
+Esses nomes são sugestões. Ajustar a modelagem quando necessário para garantir coerência.
+
+## Requisitos
+
+- Primary keys.
+- Foreign keys.
+- Constraints.
+- Índices.
+- Unique constraints.
+- Timestamps.
+- Soft delete somente quando adequado.
+- Políticas de retenção.
+- Controle de concorrência.
+- Transações.
+- Paginação.
+- Integridade referencial.
+- Migrações.
+- RLS.
+
+Usar identificadores UUID quando apropriado.
+
+Criar índices considerando consultas por município, unidade, usuário, profissional, serviço e período.
+
+## Segurança no banco
+
+Implementar políticas RLS por operação.
+
+Validar o isolamento entre:
+
+- Cidadãos diferentes.
+- UBS diferentes.
+- Municípios diferentes.
+- Funcionários com cargos distintos.
+- Profissionais sem vínculo ativo.
+- Gestores com escopo limitado.
+
+Não utilizar service role no navegador.
+
+Não confiar no `user_id`, `municipality_id` ou `health_unit_id` enviado pelo frontend sem verificar o escopo autorizado.
+
+---
+
+# 26. API REST
+
+Criar API versionada com prefixo:
+
+/api/v1
+
+Organizar recursos para:
+
+- auth
+- me
+- citizens
+- municipalities
+- health-units
+- sectors
+- services
+- professionals
+- schedules
+- appointments
+- check-ins
+- queues
+- vaccinations
+- campaigns
+- inventory
+- announcements
+- notifications
+- requests
+- referrals
+- dashboard
+- reports
+- administration
+- audit
+
+Os nomes definitivos devem seguir convenções REST consistentes.
+
+## Regras
+
+- Validação de entrada.
+- Autenticação obrigatória nas rotas protegidas.
+- Autorização no servidor.
+- Rate limiting.
+- Paginação cursor-based quando apropriada.
+- Filtros seguros.
+- Códigos HTTP corretos.
+- Erros padronizados.
+- Idempotência.
+- Proteção contra concorrência.
+- Controle de CORS.
+- Limites de payload.
+- Observabilidade.
+- Documentação OpenAPI.
+
+Gerar documentação para cada endpoint.
+
+---
+
+# 27. REALTIME
+
+Utilizar Supabase Realtime apenas onde houver benefício real.
+
+Aplicações:
+
+- Atualização de fila.
+- Mudanças de agendamento.
+- Indicadores operacionais.
+- Notificações internas.
+- Painel de chamadas.
+
+Garantir que os eventos sejam recebidos somente por usuários autorizados.
+
+Não transmitir informações clínicas sensíveis em canais públicos.
+
+Implementar reconexão, sincronização após desconexão e recuperação de estado.
+
+O banco persistente continuará sendo a fonte de verdade.
+
+---
+
+# 28. FUNCIONAMENTO COM INTERNET INSTÁVEL
+
+A UNBS deverá suportar PWA.
+
+Implementar:
+
+- Instalação no celular.
+- Cache de recursos estáticos.
+- Tela offline.
+- Indicador de conectividade.
+- Estratégia de reconexão.
+- Cache restrito de informações não sensíveis.
+- Sincronização segura quando apropriado.
+
+Não permitir confirmar agendamentos, registrar vacinas ou concluir operações críticas offline sem confirmação posterior da autoridade do servidor.
+
+Não armazenar indiscriminadamente prontuários, tokens ou informações sensíveis em cache compartilhável.
+
+---
+
+# 29. PRIVACIDADE E LGPD
+
+Considerar que dados de saúde são dados pessoais sensíveis.
+
+Implementar medidas apropriadas de:
+
+- Minimização de dados.
+- Controle de acesso.
+- Auditoria.
+- Gestão de incidentes.
+- Criptografia em trânsito.
+- Criptografia em repouso.
+- Gestão segura de segredos.
+- Retenção de registros.
+- Exclusão quando juridicamente permitida.
+- Atendimento a direitos dos titulares.
+- Rastreabilidade.
+- Proteção contra vazamentos.
+- Segurança de sessões.
+- Separação de ambientes.
+
+Definir pontos que exigem aprovação do responsável institucional, jurídico ou encarregado de dados.
+
+Não assumir que consentimento é sempre a base legal adequada para tratamento de informações no âmbito do SUS.
+
+Implementar consentimento apenas nos processos em que ele for juridicamente pertinente.
+
+Não usar dados de pacientes para treinamento de IA.
+
+---
+
+# 30. AUDITORIA E SEGURANÇA AVANÇADA
+
+Criar logs de auditoria para operações sensíveis.
+
+Registrar, quando pertinente:
+
+- Quem realizou a operação.
+- O que foi alterado.
+- Quando.
+- Unidade.
+- Tipo da operação.
+- Resultado.
+- Contexto técnico necessário.
+
+Auditar:
+
+- Alterações de agendamento.
+- Criação e revogação de permissões.
+- Registros de vacinação.
+- Alterações de estoque.
+- Acessos sensíveis.
+- Alterações administrativas.
+- Eventos críticos de autenticação.
+
+Não colocar senhas, tokens, segredos ou informações clínicas desnecessárias nos logs.
+
+Utilizar controles contra:
+
+- SQL Injection.
+- XSS.
+- CSRF, conforme o mecanismo de autenticação.
+- IDOR.
+- Broken Access Control.
+- Escalada de privilégios.
+- Abuso de API.
+- Enumeração de usuários.
+- Uploads maliciosos.
+- Vazamento entre tenants.
+- Requisições duplicadas.
+
+Seguir OWASP ASVS e boas práticas atualizadas.
+
+---
+
+# 31. DASHBOARDS E RELATÓRIOS
+
+Criar uma interface analítica completa.
+
+Características:
+
+- Cards de indicadores.
+- Gráficos de linhas.
+- Gráficos de barras.
+- Gráficos circulares, quando adequados.
+- Filtros dinâmicos.
+- Comparações temporais.
+- Tabelas pesquisáveis.
+- Ordenação.
+- Paginação.
+- Exportação CSV.
+- Exportação PDF.
+- Controle de acesso aos relatórios.
+- Indicadores com definições documentadas.
+
+Todos os gráficos devem estar conectados aos dados do backend.
+
+Não preencher indicadores de produção com números fictícios.
+
+Utilizar estados vazios apropriados quando ainda não existirem informações.
+
+---
+
+# 32. ESTRUTURA DO PROJETO
+
+Criar um monorepositório organizado.
+
+Estrutura sugerida:
+
+unbs/
+  apps/
+    web/
+    android/
+  services/
+    api/
+  packages/
+    ui/
+    types/
+    validation/
+    api-client/
+    config/
+  supabase/
+    migrations/
+    seeds/
+    tests/
+  docs/
+    architecture/
+    api/
+    security/
+    deployment/
+    requirements/
+  tests/
+    integration/
+    e2e/
+    security/
+  .github/
+    workflows/
+  README.md
+  .env.example
+
+Modificar a estrutura quando houver uma justificativa técnica clara.
+
+Manter separação entre apresentação, aplicação, domínio, infraestrutura e persistência.
+
+Criar componentes reutilizáveis.
+
+Evitar arquivos gigantes e lógica duplicada.
+
+---
+
+# 33. TELAS OBRIGATÓRIAS
+
+## Área pública
+
+- Página inicial da UNBS.
+- Como funciona.
+- Serviços.
+- Consulta de UBS.
+- Login.
+- Cadastro.
+- Recuperação de senha.
+- Política de privacidade.
+- Termos e informações institucionais.
+
+## Área do cidadão
+
+- Dashboard.
+- Meu perfil.
+- Minha UBS.
+- Agendar consulta.
+- Escolher serviço.
+- Escolher profissional.
+- Escolher horário.
+- Confirmação.
+- Meus agendamentos.
+- Detalhes do agendamento.
+- Minhas solicitações.
+- Carteira de vacinação.
+- Campanhas.
+- Avisos.
+- Notificações.
+- Dependentes.
+- Configurações.
+
+## Área da UBS
+
+- Dashboard.
+- Agenda.
+- Calendário.
+- Agendamentos.
+- Check-in.
+- Filas.
+- Painel de chamadas.
+- Cidadãos autorizados.
+- Serviços.
+- Profissionais.
+- Setores.
+- Vacinação.
+- Estoque.
+- Avisos.
+- Solicitações.
+- Ouvidoria.
+- Relatórios.
+- Administração.
+- Configurações.
+- Auditoria.
+
+## Área da Secretaria
+
+- Dashboard municipal.
+- UBS cadastradas.
+- Gestão de unidades.
+- Gestores.
+- Profissionais.
+- Serviços municipais.
+- Indicadores.
+- Campanhas.
+- Relatórios.
+- Configurações.
+- Auditoria autorizada.
+
+## Área do administrador da plataforma
+
+- Gestão de municípios.
+- Configurações globais.
+- Administração técnica.
+- Monitoramento.
+- Logs técnicos.
+- Controle de versões.
+- Integrações.
+- Saúde da plataforma.
+
+---
+
+# 34. DADOS DEMONSTRATIVOS
+
+Criar dados de demonstração exclusivamente fictícios.
+
+Gerar:
+
+- Município fictício.
+- Duas UBS fictícias.
+- Serviços de exemplo.
+- Funcionários fictícios.
+- Cidadãos fictícios.
+- Agendamentos de teste.
+- Histórico de vacinação fictício.
+- Indicadores derivados dos registros de teste.
+
+Todo ambiente demonstrativo deverá estar identificado como demonstração.
+
+Jamais popular ambiente de produção automaticamente com dados fictícios.
+
+Não utilizar informações reais sem autorização.
+
+---
+
+# 35. TESTES
+
+Implementar testes automatizados.
+
+## Testes unitários
+
+- Validações.
+- Regras de agendamento.
+- Cálculos de disponibilidade.
+- Transições de estado.
+- Permissões.
+- Regras de estoque.
+- Regras de filas.
+
+## Testes de integração
+
+- API com PostgreSQL.
+- Autenticação.
+- RLS.
+- Agendamentos.
+- Vacinação.
+- Multitenancy.
+- Operações concorrentes.
+- Auditoria.
+
+## Testes end-to-end
+
+- Cadastro.
+- Login.
+- Agendamento.
+- Cancelamento.
+- Check-in.
+- Atendimento administrativo.
+- Operação de funcionário.
+- Gestão da unidade.
+
+## Testes de segurança
+
+Verificar explicitamente:
+
+- Um cidadão não acessa outro.
+- Uma UBS não acessa outra indevidamente.
+- Um município não acessa outro.
+- Um funcionário não eleva seus privilégios.
+- Um administrador técnico não recebe acesso clínico automático.
+- Uma tentativa de agendamento concorrente não gera duplicidade.
+- A revogação de permissões impede novas operações.
+
+Não declarar testes aprovados sem execução real.
+
+Se o ambiente não permitir executar os testes, indicar precisamente os comandos e o que permanece não verificado.
+
+---
+
+# 36. IMPLANTAÇÃO
+
+Preparar instruções completas de implantação.
+
+Criar:
+
+- README.md.
+- .env.example.
+- Arquivos de configuração do Cloudflare.
+- Migrações do Supabase.
+- Scripts de desenvolvimento.
+- Scripts de build.
+- Scripts de testes.
+- Configuração de CI/CD.
+- Documentação OpenAPI.
+- Guia de deploy.
+- Guia de backup e restauração.
+- Guia de recuperação de desastres.
+- Guia de segurança.
+- Guia de operação.
+
+Separar os ambientes:
+
+- Development.
+- Staging.
+- Production.
+
+Nunca inserir credenciais reais nos arquivos.
+
+Quando uma chave ou configuração externa for necessária, apresentar instruções claras para configurá-la.
+
+Não afirmar que um serviço foi implantado sem confirmação efetiva.
+
+---
+
+# 37. ORDEM DE DESENVOLVIMENTO
+
+A implementação deverá acontecer em fases, preservando a funcionalidade dos módulos concluídos.
+
+## Fase 1 — Fundação
+
+Criar:
+
+- Estrutura do projeto.
+- Design system.
+- Layouts.
+- Rotas.
+- Configurações.
+- Banco inicial.
+- Autenticação.
+- RBAC/ABAC.
+- RLS.
+- Gestão de municípios e UBS.
+- Perfis básicos.
+- Testes iniciais.
+
+## Fase 2 — Cidadão e agendamento
+
+Criar:
+
+- Portal do cidadão.
+- Perfil.
+- UBS.
+- Serviços.
+- Agendamentos.
+- Agenda da recepção.
+- Confirmações.
+- Cancelamentos.
+- Reagendamentos.
+- Testes de concorrência.
+
+## Fase 3 — Atendimento operacional
+
+Criar:
+
+- Check-in.
+- Filas.
+- Painel de chamadas.
+- Agenda profissional.
+- Comunicação da UBS.
+- Solicitações administrativas.
+- Notificações internas.
+
+## Fase 4 — Vacinação e gestão
+
+Criar:
+
+- Histórico de vacinação.
+- Registro autorizado de doses.
+- Estoque.
+- Campanhas.
+- Gestão de profissionais.
+- Dashboards.
+- Relatórios.
+
+## Fase 5 — Administração municipal
+
+Criar:
+
+- Painel da Secretaria.
+- Múltiplas UBS.
+- Gestão municipal.
+- Indicadores.
+- Relatórios consolidados.
+- Administração de permissões.
+- Auditoria.
+
+## Fase 6 — Recursos avançados
+
+Criar ou preparar:
+
+- PWA offline controlado.
+- Notificações externas.
+- Aplicativo Android.
+- Integrações institucionais futuras.
+- IA administrativa controlada.
+- Funcionalidades clínicas condicionadas a validação.
+
+## Fase 7 — Qualidade e produção
+
+- Testes completos.
+- Revisão de segurança.
+- Revisão de acessibilidade.
+- Otimização.
+- Documentação.
+- CI/CD.
+- Procedimentos de backup.
+- Revisão de conformidade.
+- Homologação institucional.
+- Preparação para produção.
+
+---
+
+# 38. COMO VOCÊ DEVE TRABALHAR
+
+Você não deve simplesmente responder com um documento descrevendo o sistema.
+
+**Sua obrigação principal é produzir a aplicação e seus arquivos de código.**
+
+Quando o ambiente possuir acesso de escrita e execução:
+
+1. Criar os arquivos.
+2. Implementar o código.
+3. Configurar dependências.
+4. Executar verificações.
+5. Corrigir erros encontrados.
+6. Validar a integração dos módulos.
+7. Continuar com a próxima fase.
+
+Quando não possuir recursos para executar ou criar determinado componente, entregar o código e as instruções exatas, explicando o que não foi executado.
+
+Não utilizar funções mockadas como se estivessem integradas.
+
+Mocks são permitidos apenas em ambientes demonstrativos e testes claramente identificados.
+
+Não substituir integrações reais por alertas, dados estáticos ou botões visuais.
+
+Não eliminar requisitos complexos silenciosamente.
+
+Ao encontrar uma limitação, preservar a arquitetura e registrar a pendência.
+
+## Prioridade
+
+A prioridade é:
+
+1. Segurança.
+2. Integridade de dados.
+3. Funcionamento.
+4. Acessibilidade.
+5. Experiência do usuário.
+6. Desempenho.
+7. Escalabilidade.
+8. Aparência visual.
+
+A qualidade visual também é obrigatória, mas nunca poderá comprometer segurança ou funcionamento.
+
+---
+
+# 39. CRITÉRIOS DE ACEITAÇÃO
+
+Uma funcionalidade somente será considerada concluída quando possuir:
+
+- Interface funcional.
+- Integração com backend.
+- Persistência real.
+- Validação.
+- Autorização.
+- Tratamento de erros.
+- Feedback ao usuário.
+- Estados de carregamento.
+- Tratamento de dados vazios.
+- Testes apropriados.
+- Documentação mínima.
+
+Não marcar uma funcionalidade como concluída apenas porque sua tela foi criada.
+
+Manter um arquivo `IMPLEMENTATION_STATUS.md` com:
+
+- Funcionalidades concluídas.
+- Funcionalidades parciais.
+- Funcionalidades pendentes.
+- Testes executados.
+- Testes não executados.
+- Integrações configuradas.
+- Integrações pendentes.
+- Limitações técnicas.
+- Próxima etapa.
+
+---
+
+# 40. RESULTADO FINAL ESPERADO
+
+Quero receber uma plataforma UNBS com:
+
+**Portal do cidadão funcional.**
+
+**Painel operacional da UBS funcional.**
+
+**Painel de gestão municipal funcional.**
+
+**Sistema de autenticação e permissões.**
+
+**Banco PostgreSQL integrado.**
+
+**API REST documentada.**
+
+**Agendamento com controle de concorrência.**
+
+**Gestão de filas e check-in.**
+
+**Histórico de vacinação com rastreabilidade.**
+
+**Notificações.**
+
+**Solicitações administrativas.**
+
+**Dashboards e relatórios.**
+
+**Controle de estoque.**
+
+**Auditoria.**
+
+**Arquitetura preparada para Android e integrações oficiais.**
+
+**Código modular e documentado.**
+
+**Procedimentos de testes e implantação.**
+
+---
+
+# INSTRUÇÃO FINAL — COMEÇAR AGORA
+
+Inicie imediatamente a construção do projeto UNBS.
+
+Primeiro estabeleça a arquitetura definitiva e a estrutura de diretórios, depois implemente a Fase 1 de maneira funcional.
+
+Utilize código de produção, boas práticas e padrões profissionais.
+
+Crie uma identidade visual própria e um design system consistente.
+
+Se estiver no ambiente de criação de aplicativos do Google AI Studio, utilize seus recursos de pré-visualização e edição para construir a aplicação web e disponibilizar as telas navegáveis.
+
+Para componentes que não puderem rodar nesse ambiente, mantenha o código organizado e compatível com execução externa.
+
+Não fique apenas explicando como fazer.
+
+**Implemente o máximo que o ambiente permitir, valide cada parte implementada e mantenha o projeto preparado para continuar nas próximas fases até atingir todos os requisitos.**
+
+Comece pela estrutura, autenticação, banco, permissões e layout funcional do sistema UNBS.

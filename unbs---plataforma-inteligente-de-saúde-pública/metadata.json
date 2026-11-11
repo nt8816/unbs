@@ -1,0 +1,6 @@
+{
+  "name": "UNBS - Plataforma Inteligente de Saúde Pública",
+  "description": "Plataforma digital integrada e modular para Unidades Básicas de Saúde (UBS), cidadãos do SUS, profissionais e secretarias municipais de saúde.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

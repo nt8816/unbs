@@ -1,0 +1,224 @@
+openapi: 3.0.3
+info:
+  title: UNBS - Plataforma Digital de Saúde Pública
+  description: API REST para interoperabilidade entre Unidades Básicas de Saúde (UBS), Cidadãos do SUS, Equipes de Saúde e Secretarias Municipais.
+  version: 4.0.0
+servers:
+  - url: /api/v1
+    description: Servidor de Homologação / Produção
+paths:
+  /health:
+    get:
+      summary: Health check da plataforma
+      responses:
+        '200':
+          description: Sistema operacional
+  /municipalities:
+    get:
+      summary: Listar municípios atendidos
+      responses:
+        '200':
+          description: Lista de municípios
+  /health-units:
+    get:
+      summary: Listar Unidades Básicas de Saúde (UBS)
+      parameters:
+        - name: municipalityId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de unidades com CNES e endereço
+  /services:
+    get:
+      summary: Listar serviços oferecidos pela UBS
+      parameters:
+        - name: unitId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de especialidades e serviços
+  /slots:
+    get:
+      summary: Consultar horários e vagas disponíveis
+      parameters:
+        - name: unitId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: serviceId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vagas disponíveis para agendamento
+  /appointments:
+    get:
+      summary: Listar agendamentos com filtros autorizados
+      parameters:
+        - name: citizenId
+          in: query
+          schema:
+            type: string
+        - name: unitId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de agendamentos
+    post:
+      summary: Realizar novo agendamento com controle de concorrência
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - citizenId
+                - healthUnitId
+                - serviceId
+                - slotDate
+                - slotTime
+              properties:
+                citizenId:
+                  type: string
+                citizenName:
+                  type: string
+                citizenCpf:
+                  type: string
+                healthUnitId:
+                  type: string
+                serviceId:
+                  type: string
+                slotDate:
+                  type: string
+                slotTime:
+                  type: string
+      responses:
+        '201':
+          description: Agendamento confirmado com protocolo SUS
+        '409':
+          description: Conflito de vaga (já reservada)
+  /appointments/{id}/cancel:
+    post:
+      summary: Cancelar agendamento e liberar vaga
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Horário liberado com sucesso
+  /queues/tickets:
+    post:
+      summary: Emitir senha de atendimento (Normal ou Prioritária)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - healthUnitId
+                - serviceId
+                - priorityType
+                - citizenName
+              properties:
+                healthUnitId:
+                  type: string
+                serviceId:
+                  type: string
+                priorityType:
+                  type: string
+                  enum: [NORMAL, PRIORIDADE_IDOSO_60, PRIORIDADE_IDOSO_80, PRIORIDADE_GESTANTE_LACTANTE, PRIORIDADE_PCD, EMERGENCIA_ACOLHIMENTO]
+                citizenName:
+                  type: string
+      responses:
+        '201':
+          description: Senha gerada
+  /queues/tickets/{id}/call:
+    post:
+      summary: Chamar senha no painel público da UBS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deskNumber:
+                  type: string
+      responses:
+        '200':
+          description: Senha chamada no monitor
+  /immunizations:
+    get:
+      summary: Consultar carteira de vacinação do cidadão
+      parameters:
+        - name: citizenId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Histórico de vacinas com lote e aplicador
+    post:
+      summary: Registrar aplicação de vacina pela equipe autorizada
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - citizenId
+                - vaccineId
+                - batchId
+                - doseNumber
+                - healthUnitId
+      responses:
+        '201':
+          description: Vacina registrada com baixa no lote
+  /inventory:
+    get:
+      summary: Consultar estoque e insumos da unidade
+      parameters:
+        - name: unitId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de medicamentos e insumos com alerta de estoque mínimo
+  /dashboard/kpis:
+    get:
+      summary: Obter indicadores consolidados municipais
+      responses:
+        '200':
+          description: Indicadores operacionais agregados
+  /audit:
+    get:
+      summary: Consultar trilha de auditoria LGPD
+      responses:
+        '200':
+          description: Logs de auditoria do sistema
